@@ -51,7 +51,7 @@ define Package/openwrt-brook-tproxy/Default
 	PKGARCH:=all
 endef
 
-Package/openwrt-brook-tproxy = $(call Package/openwrt-brook-tproxy/Default,+ipset +ip-full +iptables-mod-tproxy +dnsmasq-full +coreutils +coreutils-base64)
+Package/openwrt-brook-tproxy = $(call Package/openwrt-brook-tproxy/Default,+ipset +ip +iptables-mod-tproxy +dnsmasq-full +coreutils +coreutils-base64)
 
 define Package/openwrt-brook-tproxy/description
 	LuCI Support for Brook.
