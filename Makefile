@@ -10,7 +10,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=openwrt-brook-tproxy
-PKG_VERSION:=1.0.0
+PKG_VERSION:=1.0.1
 PKG_RELEASE:=1
 
 PKG_LICENSE:=GPLv3
@@ -18,6 +18,26 @@ PKG_LICENSE_FILES:=LICENSE
 PKG_MAINTAINER:=WouldChar
 
 PKG_BUILD_PARALLEL:=1
+RELEASE_VERSION:=v20180401
+
+ifeq ($(ARCH),mipsel)
+BROOK_NAME:=brook_linux_mipsle
+endif
+ifeq ($(ARCH),mips)
+BROOK_NAME:=brook_linux_mips
+endif
+ifeq ($(ARCH),i386)
+BROOK_NAME:=brook_linux_386
+endif
+ifeq ($(ARCH),x86_64)
+BROOK_NAME:=brook
+endif
+ifeq ($(ARCH),arm)
+BROOK_NAME:=brook_linux_arm7
+endif
+ifeq ($(ARCH),aarch64)
+BROOK_NAME:=brook_linux_arm64
+endif
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -40,6 +60,8 @@ endef
 define Build/Prepare
 	$(foreach po,$(wildcard ${CURDIR}/files/luci/i18n/*.po), \
 		po2lmo $(po) $(PKG_BUILD_DIR)/$(patsubst %.po,%.lmo,$(notdir $(po)));)
+
+	wget -O $(PKG_BUILD_DIR)/brook https://github.com/txthinking/brook/releases/download/$(RELEASE_VERSION)/$(BROOK_NAME)
 endef
 
 define Build/Configure
@@ -108,6 +130,7 @@ define Package/openwrt-brook-tproxy/install
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) ./files/root/usr/bin/brook-gfw $(1)/usr/bin/brook-gfw
 	$(INSTALL_BIN) ./files/root/usr/bin/brook-ad $(1)/usr/bin/brook-ad
+	$(INSTALL_BIN) $(PKG_BUILD_DIR)/brook $(1)/usr/bin/brook
 endef
 
 $(eval $(call BuildPackage,openwrt-brook-tproxy))
