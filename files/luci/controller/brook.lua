@@ -16,8 +16,9 @@ function index()
 		return
 	end
 
-	entry({"admin", "services", "brook", "status"},cbi("brook/status"),_("Status"), 30).leaf = true
+	entry({"admin", "services", "brook", "status"},cbi("brook/status"),_("Status"), 20).leaf = true
 	entry({"admin", "services", "brook", "refresh"}, call("refresh_data"))
+	entry({"admin", "services", "brook", "custom"},cbi("brook/gfwlist-custom"),_("Custom List"), 30).leaf = true
 end
 
 function refresh_data()

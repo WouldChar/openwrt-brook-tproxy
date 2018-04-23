@@ -125,6 +125,7 @@ define Package/openwrt-brook-tproxy/install
 	$(INSTALL_BIN) ./files/root/etc/init.d/brook $(1)/etc/init.d/brook
 	$(INSTALL_DIR) $(1)/etc/dnsmasq.brook
 	$(INSTALL_DATA) ./files/root/etc/dnsmasq.brook/gfw_list.conf $(1)/etc/dnsmasq.brook/gfw_list.conf
+	$(INSTALL_DATA) ./files/root/etc/dnsmasq.brook/custom_list.conf $(1)/etc/dnsmasq.brook/custom_list.conf
 	$(INSTALL_DIR) $(1)/etc
 	$(INSTALL_DATA) ./files/root/etc/china_ip.txt $(1)/etc/china_ip.txt
 	$(INSTALL_DIR) $(1)/usr/bin
